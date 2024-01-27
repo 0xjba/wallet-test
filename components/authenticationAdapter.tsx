@@ -1,7 +1,7 @@
 import { createAuthenticationAdapter } from '@rainbow-me/rainbowkit';
 import { useSignTypedData } from 'wagmi';
 
-const hardcodedNonce = '658230f3a6773db36caacd4dbcee16b75c7edb9a';
+const hardcodedNonce = 'b998efce97bd4822fd871bb6c40fce6ace202272';
 
 const authenticationAdapter = createAuthenticationAdapter({
 
