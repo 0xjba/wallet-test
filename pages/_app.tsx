@@ -20,8 +20,8 @@ const Ten: Chain = {
     symbol: 'ETH',
   },
   rpcUrls: {
-    public: { http: ['https://testnet.ten.xyz/v1/?token='] },
-    default: { http: ['https://testnet.ten.xyz/v1/?token='] },
+    public: { http: ['https://testnet.ten.xyz/v1/?token=b998efce97bd4822fd871bb6c40fce6ace202272'] },
+    default: { http: ['https://testnet.ten.xyz/v1/?token=b998efce97bd4822fd871bb6c40fce6ace202272'] },
   },
   blockExplorers: {
     default: { name: 'TenScan', url: 'https://tenscan.io/' },
