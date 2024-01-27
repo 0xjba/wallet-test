@@ -1,28 +1,39 @@
 import '../styles/globals.css';
 import '@rainbow-me/rainbowkit/styles.css';
-import { getDefaultWallets, RainbowKitProvider } from '@rainbow-me/rainbowkit';
+import React, { useState } from 'react';
+import { RainbowKitAuthenticationProvider, getDefaultWallets, RainbowKitProvider, Chain, AuthenticationStatus } from '@rainbow-me/rainbowkit';
 import type { AppProps } from 'next/app';
 import { configureChains, createConfig, WagmiConfig } from 'wagmi';
-import {
-  arbitrum,
-  goerli,
-  mainnet,
-  optimism,
-  polygon,
-  base,
-  zora,
-} from 'wagmi/chains';
 import { publicProvider } from 'wagmi/providers/public';
+import { mainnet, optimism, zora } from 'wagmi/chains';
+import authenticationAdapter from "./authenticationAdapter"
+
+const Ten: Chain = {
+  id: 443,
+  name: 'Ten',
+  network: 'ten',
+  iconUrl: 'https://avatars.githubusercontent.com/u/93997495?s=200&v=4',
+  iconBackground: '#ffffff',
+  nativeCurrency: {
+    decimals: 18,
+    name: 'Ten',
+    symbol: 'ETH',
+  },
+  rpcUrls: {
+    public: { http: ['https://testnet.ten.xyz/v1/?token='] },
+    default: { http: ['https://testnet.ten.xyz/v1/?token='] },
+  },
+  blockExplorers: {
+    default: { name: 'TenScan', url: 'https://tenscan.io/' },
+  },
+  testnet: true,
+};
 
 const { chains, publicClient, webSocketPublicClient } = configureChains(
-  [
-    mainnet,
-    polygon,
+  [ mainnet,
     optimism,
-    arbitrum,
-    base,
     zora,
-    ...(process.env.NEXT_PUBLIC_ENABLE_TESTNETS === 'true' ? [goerli] : []),
+    Ten
   ],
   [publicProvider()]
 );
@@ -41,11 +52,17 @@ const wagmiConfig = createConfig({
 });
 
 function MyApp({ Component, pageProps }: AppProps) {
+  const [authenticationStatus, setAuthenticationStatus] = useState<AuthenticationStatus>('unauthenticated');
   return (
     <WagmiConfig config={wagmiConfig}>
-      <RainbowKitProvider chains={chains}>
-        <Component {...pageProps} />
-      </RainbowKitProvider>
+            <RainbowKitAuthenticationProvider
+        adapter={authenticationAdapter}
+        status={authenticationStatus}
+      >
+          <RainbowKitProvider chains={chains}>
+            <Component {...pageProps} />
+          </RainbowKitProvider>
+          </RainbowKitAuthenticationProvider>
     </WagmiConfig>
   );
 }
