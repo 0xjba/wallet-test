@@ -6,7 +6,7 @@ import type { AppProps } from 'next/app';
 import { configureChains, createConfig, WagmiConfig } from 'wagmi';
 import { publicProvider } from 'wagmi/providers/public';
 import { mainnet, optimism, zora } from 'wagmi/chains';
-import authenticationAdapter from "./authenticationAdapter"
+import authenticationAdapter from "../components/authenticationAdapter"
 
 const Ten: Chain = {
   id: 443,
