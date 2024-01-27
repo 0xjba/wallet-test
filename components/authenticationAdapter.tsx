@@ -30,7 +30,7 @@ const authenticationAdapter = createAuthenticationAdapter({
     };
 
     const message = {
-      'Encryption Token': nonce, // Use the nonce as the encryption token
+      'Encryption Token': `0x${nonce}`, // Use the nonce as the encryption token
     };
 
     return {
