@@ -65,7 +65,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   });
   
   const wagmiConfig = createConfig({
-    autoConnect: false,
+    autoConnect: true,
     connectors,
     publicClient,
     webSocketPublicClient,
